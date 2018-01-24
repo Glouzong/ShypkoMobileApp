@@ -1,4 +1,4 @@
-gitpackage com.example.glouz.myapplication;
+package com.example.glouz.myapplication;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
