@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'MyAndroidKey'
             keyPassword 'g12356790'
-            storeFile file('/home/glouz/Документы/android/MyApplication2/keystores/android.lks')
+            storeFile rootProject.file('keystores/android.lks')
             storePassword '12356790'
         }
     }
