@@ -26,7 +26,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.glouz.myapplication"
+        applicationId "com.example.glouz.shypkoapp"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
