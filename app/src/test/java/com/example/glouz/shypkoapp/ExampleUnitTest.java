@@ -1,4 +1,4 @@
-package com.example.glouz.myapplication;
+package com.example.glouz.shypkoapp;
 
 import org.junit.Test;
 

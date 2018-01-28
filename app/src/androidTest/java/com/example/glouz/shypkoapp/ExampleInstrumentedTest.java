@@ -1,4 +1,4 @@
-package com.example.glouz.myapplication;
+package com.example.glouz.shypkoapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,17 +1,32 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
     signingConfigs {
         config {
             keyAlias 'MyAndroidKey'
             keyPassword 'g12356790'
-            storeFile file('/home/glouz/Документы/android/MyApplication2/keystores/android.lks')
+            storeFile rootProject.file('keystores/android.lks')
             storePassword '12356790'
         }
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.glouz.myapplication"
+        applicationId "com.example.glouz.shypkoapp"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
@@ -23,6 +38,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+            ext.betaDistributionGroupAliases = ' mobiley'
         }
     }
 }
@@ -35,4 +51,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+        transitive = true;
+    }
+    compile('com.crashlytics.sdk.android:crashlytics-ndk:2.0.1@aar') {
+        transitive = true;
+    }
+}
+
+crashlytics {
+    enableNdk true
+    androidNdkOut 'src/main/obj'
+    androidNdkLibsOut 'src/main/libs'
 }
