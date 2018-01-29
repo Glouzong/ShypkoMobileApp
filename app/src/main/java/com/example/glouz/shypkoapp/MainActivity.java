@@ -8,10 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.crashlytics.android.Crashlytics;
 
 import com.crashlytics.android.ndk.CrashlyticsNdk;
+
 import io.fabric.sdk.android.Fabric;
+
+import net.hockeyapp.android.CrashManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        checkForCrashes();
+    }
+
+    private void checkForCrashes() {
+        CrashManager.register(this);
     }
 
     @Override
