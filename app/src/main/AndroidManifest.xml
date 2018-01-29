@@ -20,11 +20,12 @@
         </activity>
 
         <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="206fd4ebb5a87f409ef463003728d9051905277b" />
-        <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="206fd4ebb5a87f409ef463003728d9051905277b" />
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
