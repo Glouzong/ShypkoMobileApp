@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/group_maket"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin"
+            android:layout_weight="0.5"
+            android:background="@drawable/rectangle"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_standart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:checked="true"
+                android:onClick="onRadioButtonClickedStandart"
+                android:padding="@dimen/padding"
+                android:text="@string/standartMaket"
+                android:textSize="@dimen/sizeMaket" />
+
+            <TextView
+                android:id="@+id/about_standart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:onClick="onRadioButtonClickedStandart"
+                android:padding="@dimen/padding"
+                android:text="@string/aboutStandart"
+                android:textSize="@dimen/aboutMaket" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin"
+            android:layout_weight="0.5"
+            android:background="@drawable/rectangle"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_dense"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:onClick="onRadioButtonClickedDense"
+                android:padding="@dimen/padding"
+                android:text="@string/denseMaket"
+                android:textSize="@dimen/sizeMaket" />
+
+            <TextView
+                android:id="@+id/about_dense"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:onClick="onRadioButtonClickedDense"
+                android:padding="@dimen/padding"
+                android:text="@string/aboutDense"
+                android:textSize="@dimen/aboutMaket" />
+        </LinearLayout>
+    </RadioGroup>
+</android.support.constraint.ConstraintLayout>

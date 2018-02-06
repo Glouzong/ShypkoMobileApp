@@ -1,3 +1,12 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="widthIcon">152dp</dimen>
+    <dimen name="heightIcon">152dp</dimen>
+    <dimen name="padding">16dp</dimen>
+    <dimen name="hello">16sp</dimen>
+    <dimen name="nameApp">20sp</dimen>
+    <dimen name="radioThemeSize">24sp</dimen>
+    <dimen name="sizeMaket">20sp</dimen>
+    <dimen name="aboutMaket">14sp</dimen>
+    <dimen name="aboutApp">18sp</dimen>
+    <dimen name="margin">16dp</dimen>
 </resources>

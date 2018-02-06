@@ -1,7 +1,18 @@
 <resources>
-    <string name="app_name">Shypko app</string>
-    <string name="action_settings">Settings</string>
+    <string name="appName">Shypko app</string>
+    <string name="actionSettings">Settings</string>
     <string name="linkGithub">https://github.com/Glouzong/ShypkoMobileApp</string>
     <string name="myName">Шипко Вадим</string>
     <string name="hello">Приветствую</string>
+    <string name="next">Далее</string>
+    <string name="aboutApp">Описание приложения</string>
+    <string name="whiteTheme">Светлая тема</string>
+    <string name="blackTheme">Тёмная тема</string>
+    <string name="aboutStandart">Портретная: 4 иконки в ряд \nЛандшафная: 6 иконок в ряд</string>
+    <string name="aboutDense">Портретная: 5 иконки в ряд \nЛандшафная: 7 иконок в ряд</string>
+    <string name="standartMaket">Стандартный макет</string>
+    <string name="denseMaket">Плотный макет</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
