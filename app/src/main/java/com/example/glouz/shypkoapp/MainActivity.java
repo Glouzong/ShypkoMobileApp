@@ -1,5 +1,8 @@
 package com.example.glouz.shypkoapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    SharedPreferences appSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new ViewPagerAdapter(fragmentManager);
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        appSettings = getSharedPreferences(getString(R.string.appSetting), Context.MODE_PRIVATE);
+        if (!appSettings.getBoolean(getString(R.string.keyFirstStart), true)) {
+            finalizeSetting(null);
+        }
         checkForCrashes();
+
 
     }
 
@@ -44,11 +53,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRadioButtonClickedWhite(View view) {
-        //TODO
+        SharedPreferences.Editor edit = appSettings.edit();
+        edit.putString(getString(R.string.appTheme), getString(R.string.whiteTheme));
+        edit.apply();
     }
 
     public void onRadioButtonClickedBlack(View view) {
-        //TODO
+        SharedPreferences.Editor edit = appSettings.edit();
+        edit.putString(getString(R.string.appTheme), getString(R.string.blackTheme));
+        edit.apply();
     }
 
     public void onRadioButtonClickedStandart(View view) {
@@ -58,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         }
         RadioButton dense = view.getRootView().findViewById(R.id.radio_dense);
         dense.setChecked(false);
+        SharedPreferences.Editor edit = appSettings.edit();
+        edit.putString(getString(R.string.appMaket), getString(R.string.standartMaket));
+        edit.apply();
     }
 
     public void onRadioButtonClickedDense(View view) {
@@ -67,9 +83,18 @@ public class MainActivity extends AppCompatActivity {
         }
         RadioButton standart = view.getRootView().findViewById(R.id.radio_standart);
         standart.setChecked(false);
+        SharedPreferences.Editor edit = appSettings.edit();
+        edit.putString(getString(R.string.appMaket), getString(R.string.denseMaket));
+        edit.apply();
     }
 
-    public void setXmlInfoApp(View view) {
-        setContentView(R.layout.activity_main);
+
+    public void finalizeSetting(View view) {
+        SharedPreferences.Editor edit = appSettings.edit();
+        edit.putBoolean(getString(R.string.keyFirstStart), false);
+        edit.apply();
+        Intent intent = new Intent(this, NavigationViewActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

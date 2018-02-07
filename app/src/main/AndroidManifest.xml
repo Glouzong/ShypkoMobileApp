@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.glouz.shypkoapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,8 +18,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,7 +29,24 @@
             android:name="io.fabric.ApiKey"
             android:value="206fd4ebb5a87f409ef463003728d9051905277b" />
 
-        <activity android:name=".LauncherActivity"></activity>
+        <activity
+            android:name=".NavigationViewActivity"
+            android:label="Shypko launcher"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="@string/appName"
+            android:parentActivityName=".NavigationViewActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:targetApi="jelly_bean">
+        </activity>
     </application>
 
 </manifest>

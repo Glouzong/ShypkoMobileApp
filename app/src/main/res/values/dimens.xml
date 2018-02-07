@@ -9,4 +9,6 @@
     <dimen name="aboutMaket">14sp</dimen>
     <dimen name="aboutApp">18sp</dimen>
     <dimen name="margin">16dp</dimen>
+    <dimen name="item_offset">8dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
 </resources>
