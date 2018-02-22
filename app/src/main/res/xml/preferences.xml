@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/keyFirstStart"
+        android:title="Показывать приветственную страницу?" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/keyMaket"
+        android:title="Плотный макет" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/keyTheme"
+        android:title="Тёмная тема" />
+</PreferenceScreen>

@@ -1,15 +1,18 @@
 package com.example.glouz.shypkoapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 
 public class WelcomePageFragments extends Fragment {
 
     private static final String PAGE_NUMBER_KEY = "page_number";
+    DataSetting settings;
 
     static WelcomePageFragments newInstance(int page) {
         WelcomePageFragments welcomePageFragments = new WelcomePageFragments();
@@ -41,6 +44,24 @@ public class WelcomePageFragments extends Fragment {
                 idPage = R.layout.welcome_page;
         }
 
-        return inflater.inflate(idPage, container, false);
+        View view = inflater.inflate(idPage, container, false);
+        settings = new DataSetting(view.getContext());
+        switch (numberPage) {
+            case 2:
+                if (settings.checkTheme()) {
+                    RadioButton button = view.findViewById(R.id.radio_black);
+                    button.setChecked(true);
+                }
+                break;
+            case 3:
+                if (settings.checkMaket()) {
+                    RadioButton button = view.findViewById(R.id.radio_dense);
+                    button.setChecked(true);
+                    button = view.findViewById(R.id.radio_standart);
+                    button.setChecked(false);
+                }
+                break;
+        }
+        return view;
     }
 }

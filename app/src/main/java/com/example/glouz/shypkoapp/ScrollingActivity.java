@@ -1,5 +1,7 @@
 package com.example.glouz.shypkoapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,9 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class ScrollingActivity extends AppCompatActivity {
+    DataSetting settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        settings = new DataSetting(this);
+        if (settings.checkTheme()) {
+            setTheme(R.style.AppTheme_Dark_NoActionBar);
+        } else {
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -21,14 +30,23 @@ public class ScrollingActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    public void callPhone(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + getString(R.string.number_phone)));
+        startActivity(intent);
+    }
+
+    public void openEmail(View view) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"+getString(R.string.email)));
+        startActivity(intent);
+    }
+
+    public void openGithub(View view) {
+        Uri address = Uri.parse(getString(R.string.linkGithub));
+        Intent openlink = new Intent(Intent.ACTION_VIEW, address);
+        startActivity(openlink);
     }
 }

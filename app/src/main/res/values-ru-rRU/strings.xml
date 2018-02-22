@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="myName">Шипко Вадим</string>
+    <string name="hello">Приветствую</string>
+    <string name="aboutApp">Лучший лаунчер, советую</string>
+    <string name="whiteTheme">Светлая тема</string>
+    <string name="blackTheme">Тёмная тема</string>
+    <string name="aboutStandart">Портретная: 4 иконки в ряд \nЛандшафная: 6 иконок в ряд</string>
+    <string name="aboutDense">Портретная: 5 иконки в ряд \nЛандшафная: 7 иконок в ряд</string>
+    <string name="standartMaket">Стандартный макет</string>
+    <string name="denseMaket">Плотный макет</string>
+    <string name="large_text">Информация о человеке сверху</string>
+</resources>

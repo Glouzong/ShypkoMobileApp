@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="myName"> Shipko Vadim </string>
+        
+    <string name="hello"> שלום </string>
+        
+    <string name="aboutApp"> המשגר הטוב ביותר, אני מייעץ </string>
+        
+    <string name="whiteTheme"> נושא בהיר </string>
+        
+    <string name="blackTheme"> ערכת נושא כהה </string>
+        
+    <string name="aboutStandart"> דיוקן: 4 סמלים בשורה \ nLandscape: 6 סמלים בשורה </string>
+        
+    <string name="aboutDense"> דיוקן: 5 סמלים בשורה \ nLandscape: 7 סמלים בשורה </string>
+        
+    <string name="standartMaket"> פריסה רגילה </string>
+        
+    <string name="denseMaket"> פריסה הדוקה </string>
+        
+    <string name="large_text"> מידע על האדם מלמעלה </string>
+</resources>

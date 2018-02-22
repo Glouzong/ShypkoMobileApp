@@ -1,19 +1,11 @@
 package com.example.glouz.shypkoapp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.RadioButton;
 
 import com.crashlytics.android.Crashlytics;
@@ -28,23 +20,27 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    SharedPreferences appSettings;
+    DataSetting settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        settings = new DataSetting(this);
+        if (!settings.checkFirstStart()) {
+            finalizeSetting(null);
+        }
+        if (settings.checkTheme()) {
+            setTheme(R.style.AppTheme_Dark_NoActionBar);
+        } else {
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
         setContentView(R.layout.activity_main);
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        mSectionsPagerAdapter = new ViewPagerAdapter(fragmentManager);
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mSectionsPagerAdapter = new ViewPagerAdapter(fragmentManager, settings);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        appSettings = getSharedPreferences(getString(R.string.appSetting), Context.MODE_PRIVATE);
-        if (!appSettings.getBoolean(getString(R.string.keyFirstStart), true)) {
-            finalizeSetting(null);
-        }
         checkForCrashes();
-
 
     }
 
@@ -53,15 +49,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRadioButtonClickedWhite(View view) {
-        SharedPreferences.Editor edit = appSettings.edit();
-        edit.putString(getString(R.string.appTheme), getString(R.string.whiteTheme));
-        edit.apply();
+        settings.setTheme(false);
     }
 
     public void onRadioButtonClickedBlack(View view) {
-        SharedPreferences.Editor edit = appSettings.edit();
-        edit.putString(getString(R.string.appTheme), getString(R.string.blackTheme));
-        edit.apply();
+        settings.setTheme(true);
     }
 
     public void onRadioButtonClickedStandart(View view) {
@@ -71,9 +63,8 @@ public class MainActivity extends AppCompatActivity {
         }
         RadioButton dense = view.getRootView().findViewById(R.id.radio_dense);
         dense.setChecked(false);
-        SharedPreferences.Editor edit = appSettings.edit();
-        edit.putString(getString(R.string.appMaket), getString(R.string.standartMaket));
-        edit.apply();
+
+        settings.setMaket(false);
     }
 
     public void onRadioButtonClickedDense(View view) {
@@ -83,16 +74,12 @@ public class MainActivity extends AppCompatActivity {
         }
         RadioButton standart = view.getRootView().findViewById(R.id.radio_standart);
         standart.setChecked(false);
-        SharedPreferences.Editor edit = appSettings.edit();
-        edit.putString(getString(R.string.appMaket), getString(R.string.denseMaket));
-        edit.apply();
+
+        settings.setMaket(true);
     }
 
-
     public void finalizeSetting(View view) {
-        SharedPreferences.Editor edit = appSettings.edit();
-        edit.putBoolean(getString(R.string.keyFirstStart), false);
-        edit.apply();
+        settings.setFirstStart();
         Intent intent = new Intent(this, NavigationViewActivity.class);
         startActivity(intent);
         finish();

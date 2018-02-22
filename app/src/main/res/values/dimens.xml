@@ -11,4 +11,7 @@
     <dimen name="margin">16dp</dimen>
     <dimen name="item_offset">8dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="size_avatar_navigationbar">76dp</dimen>
+    <dimen name="sizeNameApp">12sp</dimen>
+    <dimen name="size_icons_about_me">48dp</dimen>
 </resources>

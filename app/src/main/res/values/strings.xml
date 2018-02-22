@@ -1,27 +1,113 @@
 <resources>
-    <string name="appName">Shypko app</string>
-    <string name="actionSettings">Settings</string>
-    <string name="linkGithub">https://github.com/Glouzong/ShypkoMobileApp</string>
+    <!--Не переводить-->
+    <string name="appName" translatable="false">Shypko app</string>
+    <string name="linkGithub" translatable="false">https://github.com/Glouzong/ShypkoMobileApp</string>
+    <string name="email" translatable="false">vadimshipko@gmail.com</string>
+    <string name="number_phone">+375336666666</string>
+
+    <!--Переменые и ключи-->
+    <string name="appSetting" translatable="false">appSetting</string>
+    <string name="keyTheme">keyTheme</string>
+    <string name="keyMaket">keyMaket</string>
+    <string name="keyFirstStart" translatable="false">firstStart</string>
+
+    <!--Переводить-->
     <string name="myName">Шипко Вадим</string>
     <string name="hello">Приветствую</string>
-    <string name="next">Далее</string>
-    <string name="aboutApp">Описание приложения</string>
+    <string name="aboutApp">Лучший лаунчер, советую</string>
     <string name="whiteTheme">Светлая тема</string>
     <string name="blackTheme">Тёмная тема</string>
     <string name="aboutStandart">Портретная: 4 иконки в ряд \nЛандшафная: 6 иконок в ряд</string>
     <string name="aboutDense">Портретная: 5 иконки в ряд \nЛандшафная: 7 иконок в ряд</string>
     <string name="standartMaket">Стандартный макет</string>
     <string name="denseMaket">Плотный макет</string>
+    <string name="large_text">Информация о человеке сверху</string>
+
+    <string name="endSetting">Закончить настройку</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="grid">Сетка</string>
+    <string name="list">Список</string>
+    <string name="Setting">Настройки</string>
+    <string name="keyTypeLayout">keyGridLayout</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="large_text">Длинный текст для пролистывания</string>
-    <string name="mail">vadimshipko@gmail.com</string>
-    <string name="end_setting">Закончить настройку</string>
-    <string name="appSetting">appSetting</string>
-    <string name="appTheme">Theme</string>
-    <string name="appMaket">maket</string>
-    <string name="keyFirstStart">firstStart</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="frequency">frequency</string>
+    <string name="delete">delete</string>
+    <string name="info">info</string>
 </resources>

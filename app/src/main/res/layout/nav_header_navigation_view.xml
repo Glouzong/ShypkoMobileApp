@@ -12,17 +12,16 @@
     android:paddingTop="@dimen/margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <View
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:layout_width="@dimen/size_avatar_navigationbar"
+        android:layout_height="@dimen/size_avatar_navigationbar"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/avatar" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/myName"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -30,6 +29,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mail" />
+        android:text="@string/email" />
 
 </LinearLayout>

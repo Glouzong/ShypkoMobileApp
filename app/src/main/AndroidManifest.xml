@@ -6,22 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/appName"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/appName"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        android:theme="@style/AppTheme.NoActionBar">
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
@@ -30,23 +19,33 @@
             android:value="206fd4ebb5a87f409ef463003728d9051905277b" />
 
         <activity
+            android:name=".MainActivity"
+            android:label="@string/appName">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".NavigationViewActivity"
-            android:label="Shypko launcher"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="Shypko launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/appName"
+            android:parentActivityName=".NavigationViewActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/Setting"
             android:parentActivityName=".NavigationViewActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            tools:targetApi="jelly_bean">
-        </activity>
+            android:theme="@style/AppTheme.Settings.Light" />
     </application>
-
 </manifest>
+
+    <!--android:theme="@style/AppTheme.Settings.Light"--><!--android:theme="@style/AppTheme.Dark"-->

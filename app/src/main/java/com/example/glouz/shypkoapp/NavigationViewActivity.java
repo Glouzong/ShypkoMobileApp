@@ -1,12 +1,12 @@
 package com.example.glouz.shypkoapp;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,16 +19,28 @@ import android.view.MenuItem;
 import com.example.glouz.shypkoapp.launcher.LauncherAdapter;
 import com.example.glouz.shypkoapp.launcher.OffsetItemDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class NavigationViewActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    RecyclerView recyclerView;
+    DataSetting settings;
+    boolean lastFlagMaket = false, lastFlagTheme = false;
+    LauncherAdapter launcherAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        settings = new DataSetting(this);
+        if (settings.checkTheme()) {
+            setTheme(R.style.AppTheme_Dark_NoActionBar);
+        } else {
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
+        lastFlagTheme = settings.checkTheme();
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_navigation_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,35 +63,28 @@ public class NavigationViewActivity extends AppCompatActivity
             }
         });
 
-        createGridLayout();
-    }
-
-    private void createGridLayout() {
-        final RecyclerView recyclerView = findViewById(R.id.louncher_content);
-        recyclerView.setHasFixedSize(true);
+        recyclerView = findViewById(R.id.louncher_content);
+        recyclerView.setHasFixedSize(false);
         final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
         recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
 
-        final int spanCount = getResources().getInteger(R.integer.span_count);
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
-        recyclerView.setLayoutManager(layoutManager);
-
-        final List<Integer> data = generateData();
-        final LauncherAdapter launcherAdapter = new LauncherAdapter(data);
-        recyclerView.setAdapter(launcherAdapter);
-    }
-
-    @NonNull
-    private List<Integer> generateData() {
-        final List<Integer> colors = new ArrayList<>();
-        final Random rnd = new Random();
-        for (int i = 0; i < 1000; i++) {
-            int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            colors.add(color);
+        if (settings.checkLayout()) {
+            createGridLayout();
+        } else {
+            createListLayout();
         }
-
-        return colors;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (settings.checkTheme() != lastFlagTheme) {
+            this.recreate();
+        } else if ((settings.checkMaket() != lastFlagMaket) && (settings.checkLayout())) {
+            createGridLayout();
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -92,49 +97,54 @@ public class NavigationViewActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_view, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_grid) {
+            createGridLayout();
+        } else if (id == R.id.nav_list) {
+            createListLayout();
 
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_setting) {
+            createSettingLayout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void createSettingLayout() {
+        startActivity(new Intent(this, com.example.glouz.shypkoapp.SettingsActivity.class));
+    }
+
+    private void createGridLayout() {
+        final int spanCount;
+        lastFlagMaket = settings.checkMaket();
+        if (!settings.checkMaket()) {
+            spanCount = getResources().getInteger(R.integer.span_count);
+        } else {
+            spanCount = getResources().getInteger(R.integer.span_count_dense);
+        }
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
+        recyclerView.setLayoutManager(layoutManager);
+        launcherAdapter = new LauncherAdapter(getPackageManager(), true);
+        recyclerView.setAdapter(launcherAdapter);
+        settings.setTypeLayout(true);
+    }
+
+    private void createListLayout() {
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        launcherAdapter = new LauncherAdapter(getPackageManager(), false);
+        recyclerView.setAdapter(launcherAdapter);
+        settings.setTypeLayout(false);
     }
 }

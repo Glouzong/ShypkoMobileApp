@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="myName"> Shypko Vadim </string>
+    <string name="hello"> Hello </string>
+    <string name="aboutApp"> The best launcher, I advise </string>
+    <string name="whiteTheme"> Light theme </string>
+    <string name="blackTheme"> Dark theme </string>
+    <string name="aboutStandart"> Portrait: 4 icons in a row \ nLandscape: 6 icons in a row </string>
+    <string name="aboutDense"> Portrait: 5 icons in a row \ nLandscape: 7 icons in a row </string>
+    <string name="standartMaket"> Standard Layout </string>    
+    <string name="denseMaket"> A tight layout </string>
+    <string name="large_text"> Information about the person from above </string>
+</resources>

@@ -8,10 +8,88 @@
     tools:context="com.example.glouz.shypkoapp.ScrollingActivity"
     tools:showIn="@layout/activity_scrolling">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:text="@string/large_text" />
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/myName"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding"
+            android:paddingBottom="0dp"
+            android:onClick="callPhone">
+
+            <View
+                android:layout_width="@dimen/size_icons_about_me"
+                android:layout_height="@dimen/size_icons_about_me"
+                android:paddingLeft="@dimen/padding"
+                android:background="@drawable/ic_call_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="32dp"
+                android:text="@string/number_phone"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding"
+            android:paddingBottom="0dp"
+            android:onClick="openEmail">
+
+            <View
+                android:layout_width="@dimen/size_icons_about_me"
+                android:layout_height="@dimen/size_icons_about_me"
+                android:padding="@dimen/padding"
+                android:paddingLeft="@dimen/padding"
+                android:background="@drawable/ic_email_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="32dp"
+                android:text="@string/email"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding"
+            android:onClick="openGithub">
+
+            <View
+                android:layout_width="@dimen/size_icons_about_me"
+                android:layout_height="@dimen/size_icons_about_me"
+                android:paddingLeft="@dimen/padding"
+                android:background="@drawable/ic_github_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="32dp"
+                android:text="@string/linkGithub"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <!--//TODO Добавить карту-->
+    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

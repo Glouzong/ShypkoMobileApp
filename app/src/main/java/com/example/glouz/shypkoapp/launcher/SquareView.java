@@ -4,8 +4,9 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.LinearLayout;
 
-public class SquareView extends View {
+public class SquareView extends LinearLayout {
     public SquareView(final Context context) {
         super(context);
     }
