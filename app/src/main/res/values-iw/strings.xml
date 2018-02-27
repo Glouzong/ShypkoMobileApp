@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name = "myName"> Shypko Vadim </string>
+        <string name = "hello"> שלום </string>
+        <string name = "aboutApp"> המשגר ​​הטוב ביותר, אני מייעץ </string>
+        <string name = "whiteTheme"> נושא בהיר </string>
+        <string name = "blackTheme"> ערכת נושא כהה </string>
+        <string name = "aboutStandart"> דיוקן: 4 סמלים בשורה \ nLandscape: 6 סמלים בשורה </string>
+        <string name = "aboutDense"> דיוקן: 5 סמלים בשורה \ nLandscape: 7 סמלים בשורה </string>
+        <string name = "standartMaket"> פריסה רגילה </string>
+        <string name = "denseMaket"> פריסה הדוקה </string>
+        <string name = "large_text"> מידע על האדם מלמעלה </string>
+        <string name = "endSetting"> סיום תצורה </string>
+        <string name = "navigation_drawer_open"> פתח את מגירת הניווט </string>
+        <string name = "navigation_drawer_close"> סגור את מגירת הניווט </string>
+        <string name = "grid"> רשת </string>
+        <string name = "list"> רשימה </string>
+        <string name = "Setting"> העדפות </string>
+        <string name = "frequency"> תדירות </string>
+        <string name = "delete"> מחק </string>
+        <string name = "info"> מידע </string>
+        <string name = "showWelcomePage"> הצג את דף הפתיחה? </string>
+        <string name = "darkTheme"> נושא כהה </string>
+        <string name = "sortApp"> מיון יישומים </string>
+
+        <string-array name = "listTypeSort">
+            <item> אל תבצע מיון </item>
+            <item> לפי שם ואני </item>
+            <item> לפי שם אני </item>
+            <item> לפי תדירות השימוש </item>
+            <item> לפי תאריך ההתקנה </item>
+        </string-array>
+</resources>

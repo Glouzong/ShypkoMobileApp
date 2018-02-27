@@ -1,26 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Не переводить-->
-    <string name="appName" translatable="false">Shypko app</string>
-    <string name="linkGithub" translatable="false">https://github.com/Glouzong/ShypkoMobileApp</string>
-    <string name="email" translatable="false">vadimshipko@gmail.com</string>
-    <string name="number_phone" translatable="false">+375336666666</string>
-
-    <!--Переменые и ключи-->
-    <string name="appSetting" translatable="false">appSetting</string>
-    <string name="keyTheme" translatable="false">keyTheme</string>
-    <string name="keyMaket" translatable="false">keyMaket</string>
-    <string name="keyFirstStart" translatable="false">firstStart</string>
-    <string name="keyTypeLayout" translatable="false">keyGridLayout</string>
-    <string name="keySortApp" translatable="false">keySortApp</string>
-
-    <string-array name="listKeySort" translatable="false">
-        <item>keyNoSort</item>
-        <item>keySortNameAZ</item>
-        <item>keySortNameZA</item>
-        <item>keySortFrequency</item>
-        <item>keySortDateInstall</item>
-    </string-array>
-    <!--Переводить-->
     <string name="myName">Шипко Вадим</string>
     <string name="hello">Приветствую</string>
     <string name="aboutApp">Лучший лаунчер, советую</string>
@@ -32,24 +11,23 @@
     <string name="denseMaket">Плотный макет</string>
     <string name="large_text">Информация о человеке сверху</string>
     <string name="endSetting">Закончить настройку</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Открыть навигационный ящик</string>
+    <string name="navigation_drawer_close">Закрыть навигационный ящик</string>
     <string name="grid">Сетка</string>
     <string name="list">Список</string>
     <string name="Setting">Настройки</string>
-    <string name="frequency">frequency</string>
-    <string name="delete">delete</string>
-    <string name="info">info</string>
+    <string name="frequency">Частота</string>
+    <string name="delete">Удалить</string>
+    <string name="info">Информация</string>
     <string name="showWelcomePage">Показывать приветственную страницу?</string>
     <string name="darkTheme">Тёмная тема</string>
     <string name="sortApp">Сортировка приложений</string>
 
     <string-array name="listTypeSort">
         <item>Не сортировать</item>
-        <item>По названию АЯ</item>
-        <item>По названию ЯА</item>
+        <item>По названию А Я</item>
+        <item>По названию Я А</item>
         <item>По частоте использовании</item>
         <item>По дате установки</item>
     </string-array>
-
 </resources>

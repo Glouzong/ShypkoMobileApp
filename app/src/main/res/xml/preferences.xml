@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/keyFirstStart"
+        android:title="@string/showWelcomePage" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/keyMaket"
+        android:title="@string/denseMaket" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/keyTheme"
+        android:title="@string/darkTheme"/>
+    <ListPreference
+        android:entries="@array/listTypeSort"
+        android:entryValues="@array/listKeySort"
+        android:key="@string/keySortApp"
+        android:title="@string/sortApp" />
+</PreferenceScreen>
