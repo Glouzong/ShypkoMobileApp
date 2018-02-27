@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="myName"> Shypko Vadim </string>
-    <string name="hello"> Hello </string>
-    <string name="aboutApp"> The best launcher, I advise </string>
-    <string name="whiteTheme"> Light theme </string>
-    <string name="blackTheme"> Dark theme </string>
-    <string name="aboutStandart"> Portrait: 4 icons in a row \ nLandscape: 6 icons in a row </string>
-    <string name="aboutDense"> Portrait: 5 icons in a row \ nLandscape: 7 icons in a row </string>
-    <string name="standartMaket"> Standard Layout </string>    
-    <string name="denseMaket"> A tight layout </string>
-    <string name="large_text"> Information about the person from above </string>
+    <string name="myName">Shypko Vadim</string>
+    <string name="hello">Greetings</string>
+    <string name="aboutApp">Best launcher I recommend</string>
+    <string name="whiteTheme">Light subject</string>
+    <string name="blackTheme">Dark theme</string>
+    <string name="aboutStandart"> Portrait: 4 icons in a row \landscape: 6 icons in a row</string>
+    <string name="aboutDense"> Portrait: 5 icons in a row \landscape: 7 icons in a row</string>
+    <string name="standartMaket">Standard layout</string>
+    <string name="denseMaket">Dense layout</string>
+    <string name="large_text">Information about person from above</string>
+    <string name="endSetting">Finish setting</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="grid">Grid</string>
+    <string name="list">List</string>
+    <string name="Setting">Settings</string>
+    <string name="frequency">Frequency</string>
+    <string name="delete">Delete</string>
+    <string name="info">Info</string>
+    <string name="showWelcomePage">Show welcome page?</string>
+    <string name="darkTheme">Dark theme</string>
+    <string name="sortApp">Sorting applications</string>
+
+    <string-array name="listTypeSort">
+        <item>do not sort</item>
+        <item>by name A Z</item>
+        <item>by name Z A</item>
+        <item>frequency of use</item>
+        <item>by installation date</item>
+    </string-array>
 </resources>

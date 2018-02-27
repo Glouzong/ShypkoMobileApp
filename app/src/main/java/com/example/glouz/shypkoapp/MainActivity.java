@@ -9,18 +9,15 @@ import android.view.View;
 import android.widget.RadioButton;
 
 import com.crashlytics.android.Crashlytics;
-
 import com.crashlytics.android.ndk.CrashlyticsNdk;
-
-import io.fabric.sdk.android.Fabric;
 
 import net.hockeyapp.android.CrashManager;
 
+import io.fabric.sdk.android.Fabric;
+
 public class MainActivity extends AppCompatActivity {
 
-    private ViewPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
-    DataSetting settings;
+    private DataSetting settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
         setContentView(R.layout.activity_main);
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        mSectionsPagerAdapter = new ViewPagerAdapter(fragmentManager, settings);
-        mViewPager = findViewById(R.id.container);
+        ViewPagerAdapter mSectionsPagerAdapter = new ViewPagerAdapter(fragmentManager);
+        ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         checkForCrashes();
 

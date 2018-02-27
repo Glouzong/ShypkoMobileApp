@@ -1,10 +1,7 @@
 package com.example.glouz.shypkoapp;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 

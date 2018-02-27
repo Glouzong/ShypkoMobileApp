@@ -8,7 +8,7 @@ public class DataSetting {
     private Context context;
     private SharedPreferences appSettings;
 
-    DataSetting(Context newContext) {
+    public DataSetting(Context newContext) {
         context = newContext;
         appSettings = PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -23,11 +23,15 @@ public class DataSetting {
         editor.apply();
     }
 
+    public String getTypeSort(){
+        return appSettings.getString(context.getString(R.string.keySortApp),"keyNoSort");
+    }
+
     boolean checkTheme() {
         return appSettings.getBoolean(context.getString(R.string.keyTheme), false);
     }
 
-    void setTheme(boolean whiteTheme) {
+    public void setTheme(boolean whiteTheme) {
         SharedPreferences.Editor editor = appSettings.edit();
         editor.putBoolean(context.getString(R.string.keyTheme), whiteTheme);
         editor.apply();

@@ -10,4 +10,24 @@
     <string name="standartMaket">Стандартный макет</string>
     <string name="denseMaket">Плотный макет</string>
     <string name="large_text">Информация о человеке сверху</string>
+    <string name="endSetting">Закончить настройку</string>
+    <string name="navigation_drawer_open">Открыть навигационный ящик</string>
+    <string name="navigation_drawer_close">Закрыть навигационный ящик</string>
+    <string name="grid">Сетка</string>
+    <string name="list">Список</string>
+    <string name="Setting">Настройки</string>
+    <string name="frequency">Частота</string>
+    <string name="delete">Удалить</string>
+    <string name="info">Информация</string>
+    <string name="showWelcomePage">Показывать приветственную страницу?</string>
+    <string name="darkTheme">Тёмная тема</string>
+    <string name="sortApp">Сортировка приложений</string>
+
+    <string-array name="listTypeSort">
+        <item>Не сортировать</item>
+        <item>По названию А Я</item>
+        <item>По названию Я А</item>
+        <item>По частоте использовании</item>
+        <item>По дате установки</item>
+    </string-array>
 </resources>

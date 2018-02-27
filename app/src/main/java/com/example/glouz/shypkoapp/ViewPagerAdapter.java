@@ -7,11 +7,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int COUNT_PAGE = 4;
-    DataSetting settings;
 
-    public ViewPagerAdapter(FragmentManager fm, DataSetting setting) {
+    ViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        settings = setting;
     }
 
     @Override
