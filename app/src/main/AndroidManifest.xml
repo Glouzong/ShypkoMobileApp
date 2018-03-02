@@ -3,14 +3,16 @@
     package="com.example.glouz.shypkoapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:icon="@mipmap/ic_launcher_round"
         android:label="@string/appName"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:allowBackup="true"
+        android:name=".LauncherApplication"
         android:theme="@style/AppTheme.NoActionBar">
+
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
@@ -19,7 +21,7 @@
             android:value="206fd4ebb5a87f409ef463003728d9051905277b" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".welcome.WelcomeActivity"
             android:label="@string/appName">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +40,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ScrollingActivity"
+            android:name=".UserInfoActivity"
             android:label="@string/appName"
             android:parentActivityName=".NavigationViewActivity" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".settings.SettingsActivity"
             android:label="@string/Setting"
             android:parentActivityName=".NavigationViewActivity"
             android:theme="@style/AppTheme.Settings.Light" />

@@ -1,14 +1,14 @@
-package com.example.glouz.shypkoapp;
+package com.example.glouz.shypkoapp.welcome;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class WelcomePageAdapter extends FragmentStatePagerAdapter {
 
     private static final int COUNT_PAGE = 4;
 
-    ViewPagerAdapter(FragmentManager fm) {
+    WelcomePageAdapter(FragmentManager fm) {
         super(fm);
     }
 

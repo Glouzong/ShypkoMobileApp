@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.glouz.shypkoapp.DataSetting;
 import com.example.glouz.shypkoapp.R;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,7 +37,7 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         updateDate(data);
     }
 
-    public void updateDate(ArrayList<ItemLauncher> data) {
+    private void updateDate(ArrayList<ItemLauncher> data) {
         mData = data;
         sortData();
     }
@@ -102,6 +103,7 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 mData.remove(i);
                 notifyItemRemoved(i);
                 notifyDataSetChanged();
+                YandexMetrica.reportEvent("Удалено приложение приложение");
                 break;
             }
         }
@@ -114,63 +116,80 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         ItemLauncher result = new ItemLauncher(packageManager.resolveActivity(intent, 0), packageManager);
         mData.add(result);
+        YandexMetrica.reportEvent("Установлено приложение");
         notifyItemInserted(mData.size() - 1);
         notifyDataSetChanged();
     }
 
     private void bindGridView(@NonNull final Holder.GridHolder gridHolder, final int position) {
-        final View view = gridHolder.getView();
+        final View itemView = gridHolder.getView();
         final View image = gridHolder.getImageView();
         final TextView text = gridHolder.getTextView();
         final ItemLauncher itemLauncher = mData.get(position);
+
         image.setBackground(itemLauncher.getIcon());
         text.setText(String.valueOf(itemLauncher.getNameApp()));
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(final View v) {
-                PopupMenu popupMenu = new PopupMenu(v.getContext(), view);
-                popupMenu.inflate(R.menu.launcher_menu);
-                popupMenu.show();
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.delete:
-                                Intent intent1 = new Intent(Intent.ACTION_DELETE);
-                                intent1.setData(Uri.parse("package:" + mData.get(position).getPackageName()));
-                                view.getContext().startActivity(intent1);
-                                return true;
-                            case R.id.frequency:
-                                Toast toast = Toast.makeText(view.getContext(),
-                                        view.getContext().getString(R.string.frequency) + ": " + itemLauncher.getFrequency(), Toast.LENGTH_SHORT);
-                                toast.show();
-                                return true;
-                            case R.id.info:
-                                Intent intent2 = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                intent2.setData(Uri.parse("package:" + mData.get(position).getPackageName()));
-                                view.getContext().startActivity(intent2);
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-                return true;
-            }
-        });
 
-        view.setOnClickListener(new View.OnClickListener() {
+        setMenuItem(itemView, itemLauncher);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 itemLauncher.addFrequency();
+                YandexMetrica.reportEvent("Запустили приложение");
                 Intent launchIntent = packageManager.getLaunchIntentForPackage(itemLauncher.getPackageName());
                 v.getContext().startActivity(launchIntent);
             }
         });
     }
 
+    private void setMenuItem(final View itemView, final ItemLauncher itemLauncher) {
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(final View v) {
+                PopupMenu popupMenu = new PopupMenu(v.getContext(), itemView);
+                popupMenu.inflate(R.menu.launcher_menu);
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        String eventMenuItemClick = "{\"Нажатая кнопка\":";
+                        switch (item.getItemId()) {
+                            case R.id.delete:
+                                Intent intent1 = new Intent(Intent.ACTION_DELETE);
+                                intent1.setData(Uri.parse("package:" + itemLauncher.getPackageName()));
+                                itemView.getContext().startActivity(intent1);
+                                eventMenuItemClick += "\"Удаление приложения\"}";
+                                break;
+                            case R.id.frequency:
+                                Toast toast = Toast.makeText(itemView.getContext(),
+                                        itemView.getContext().getString(R.string.frequency) +
+                                                ": " + itemLauncher.getFrequency(), Toast.LENGTH_SHORT);
+                                toast.show();
+                                eventMenuItemClick += "\"Показана частота использования\"}";
+                                break;
+                            case R.id.info:
+                                Intent intent2 = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                intent2.setData(Uri.parse("package:" + itemLauncher.getPackageName()));
+                                itemView.getContext().startActivity(intent2);
+                                eventMenuItemClick += "\"Показана информация о приложении\"}";
+                                break;
+                            default:
+                                eventMenuItemClick += "\"Произошло что-то крайне странее\"}";
+                                break;
+                        }
+                        YandexMetrica.reportEvent("Использовано меню приложения", eventMenuItemClick);
+                        return true;
+                    }
+                });
+                return true;
+            }
+        });
+    }
+
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         final View view;
         if (typeItem) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
@@ -181,7 +200,7 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         bindGridView((Holder.GridHolder) holder, position);
     }
 
