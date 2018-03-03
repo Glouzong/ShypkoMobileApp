@@ -29,7 +29,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "7495913c6df149f3a375d48bb975091c"]
         vectorDrawables.useSupportLibrary = true
@@ -60,7 +60,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics-ndk:2.0.2@aar') {
         transitive = true;
     }
-    compile 'net.hockeyapp.android:HockeySDK:5.1.0'
+    compile 'com.yandex.android:mobmetricalib:2.80'
 }
 
 crashlytics {

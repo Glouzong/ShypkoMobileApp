@@ -14,7 +14,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,13 +21,14 @@ import com.example.glouz.shypkoapp.database.DataBase;
 import com.example.glouz.shypkoapp.launcher.ItemLauncher;
 import com.example.glouz.shypkoapp.launcher.LauncherAdapter;
 import com.example.glouz.shypkoapp.launcher.OffsetItemDecoration;
+import com.example.glouz.shypkoapp.settings.SettingsActivity;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class NavigationViewActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class NavigationViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerView;
     private DataSetting settings;
@@ -42,7 +42,6 @@ public class NavigationViewActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         settings = new DataSetting(this);
-        dataBase = new DataBase(this);
         if (settings.checkTheme()) {
             setTheme(R.style.AppTheme_Dark_NoActionBar);
         } else {
@@ -50,51 +49,10 @@ public class NavigationViewActivity extends AppCompatActivity
         }
         lastFlagTheme = settings.checkTheme();
         super.onCreate(savedInstanceState);
-
-        setDate();  //TODO в отделльный поток
-
-        setContentView(R.layout.activity_navigation_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        final View navigationHeaderView = navigationView.getHeaderView(0);
-        final View profileImage = navigationHeaderView.findViewById(R.id.imageView);
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                startActivity(new Intent(v.getContext(), com.example.glouz.shypkoapp.ScrollingActivity.class));
-            }
-        });
-
-        recyclerView = findViewById(R.id.louncher_content);
-        recyclerView.setHasFixedSize(false);
-        final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
-        recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
-        typeSort = settings.getTypeSort();
-        if (settings.checkLayout()) {
-            createGridLayout();
-        } else {
-            createListLayout();
-        }
+        dataBase = new DataBase(this);
+        initNavigationView();
+        initRecyclerView();
         initReceiver();
-    }
-
-    private void initReceiver() {
-        receiver = new UpdateListAppReceiver(launcherAdapter);
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        filter.addDataScheme("package");
-        registerReceiver(receiver, filter);
     }
 
     @Override
@@ -111,14 +69,7 @@ public class NavigationViewActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onPause() {
-        Log.d("TEST", "PAUSE");
-        super.onPause();
-    }
-
-    @Override
     protected void onDestroy() {
-        Log.d("TEST", "DESTROY");
         dataBase.replace(mData);
         if (receiver != null) {
             unregisterReceiver(receiver);
@@ -146,23 +97,74 @@ public class NavigationViewActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
+        String event = "{\"Выбранная вкладка\":";
         if (id == R.id.nav_grid) {
             createGridLayout();
+            event += "\"Отображение сеткой\"}";
         } else if (id == R.id.nav_list) {
             createListLayout();
-
+            event += "\"Отображение списком\"}";
         } else if (id == R.id.nav_setting) {
             createSettingLayout();
+            event += "\"Отображение настроек\"}";
         }
-
+        YandexMetrica.reportEvent("Шторка навигации", event);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    private void initNavigationView() {
+        setContentView(R.layout.activity_navigation_view);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        final View navigationHeaderView = navigationView.getHeaderView(0);
+        final View profileImage = navigationHeaderView.findViewById(R.id.imageView);
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                startActivity(new Intent(v.getContext(), UserInfoActivity.class));
+                YandexMetrica.reportEvent("Открыто окно информации о профиле");
+            }
+        });
+    }
+
+    private void initRecyclerView() {
+        setDate();  //TODO в отделльный поток
+        recyclerView = findViewById(R.id.louncher_content);
+        recyclerView.setHasFixedSize(false);
+        final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
+        recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
+        typeSort = settings.getTypeSort();
+        if (settings.checkLayout()) {
+            createGridLayout();
+        } else {
+            createListLayout();
+        }
+    }
+
+    private void initReceiver() {
+        receiver = new UpdateListAppReceiver(launcherAdapter);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addDataScheme("package");
+        registerReceiver(receiver, filter);
+    }
+
     private void createSettingLayout() {
-        startActivity(new Intent(this, com.example.glouz.shypkoapp.SettingsActivity.class));
+        startActivity(new Intent(this, SettingsActivity.class));
+        YandexMetrica.reportEvent("Открыта страница настроек");
     }
 
     public void setDate() {

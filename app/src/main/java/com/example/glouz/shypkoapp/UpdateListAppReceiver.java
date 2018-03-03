@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.glouz.shypkoapp.launcher.LauncherAdapter;
+import com.yandex.metrica.YandexMetrica;
 
 public class UpdateListAppReceiver extends BroadcastReceiver {
     LauncherAdapter adapter;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("reciever", intent.getAction());
         if (adapter == null) {
             return;
         }

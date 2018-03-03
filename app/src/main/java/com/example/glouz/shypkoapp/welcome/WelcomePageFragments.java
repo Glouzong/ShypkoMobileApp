@@ -1,4 +1,4 @@
-package com.example.glouz.shypkoapp;
+package com.example.glouz.shypkoapp.welcome;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+
+import com.example.glouz.shypkoapp.DataSetting;
+import com.example.glouz.shypkoapp.R;
 
 public class WelcomePageFragments extends Fragment {
 
@@ -28,16 +31,16 @@ public class WelcomePageFragments extends Fragment {
         int idPage;
         switch (numberPage) {
             case 0:
-                idPage = R.layout.welcome_page;
+                idPage = R.layout.page_welcome;
                 break;
             case 1:
-                idPage = R.layout.info_app_page;
+                idPage = R.layout.page_info_app;
                 break;
             case 2:
-                idPage = R.layout.set_theme_page;
+                idPage = R.layout.page_set_theme;
                 break;
             case 3:
-                idPage = R.layout.set_maket_page;
+                idPage = R.layout.page_set_maket;
                 break;
             default:
                 idPage = R.layout.welcome_page;

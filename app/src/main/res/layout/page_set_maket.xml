@@ -29,7 +29,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
                 android:checked="true"
-                android:onClick="onRadioButtonClickedStandart"
+                android:onClick="onRadioButtonClickedStandard"
                 android:padding="@dimen/padding"
                 android:text="@string/standartMaket"
                 android:textSize="@dimen/sizeMaket"
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:onClick="onRadioButtonClickedStandart"
+                android:onClick="onRadioButtonClickedStandard"
                 android:padding="@dimen/padding"
                 android:text="@string/aboutStandart"
                 android:textSize="@dimen/aboutMaket" />

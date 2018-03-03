@@ -1,4 +1,4 @@
-package com.example.glouz.shypkoapp;
+package com.example.glouz.shypkoapp.welcome;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,14 @@ import android.widget.RadioButton;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
-
-import net.hockeyapp.android.CrashManager;
+import com.example.glouz.shypkoapp.DataSetting;
+import com.example.glouz.shypkoapp.NavigationViewActivity;
+import com.example.glouz.shypkoapp.R;
+import com.yandex.metrica.YandexMetrica;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     private DataSetting settings;
 
@@ -32,35 +34,31 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_welcome);
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        ViewPagerAdapter mSectionsPagerAdapter = new ViewPagerAdapter(fragmentManager);
+        WelcomePageAdapter mSectionsPagerAdapter = new WelcomePageAdapter(fragmentManager);
         ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        checkForCrashes();
-
-    }
-
-    private void checkForCrashes() {
-        CrashManager.register(this);
     }
 
     public void onRadioButtonClickedWhite(View view) {
         settings.setTheme(false);
+        YandexMetrica.reportEvent("Настройка с начальной страницы", "{\"Выбор тема\":\"Светлый\"}");
     }
 
     public void onRadioButtonClickedBlack(View view) {
         settings.setTheme(true);
+        YandexMetrica.reportEvent("Настройка с начальной страницы", "{\"Выбор тема\":\"Тёмный\"}");
     }
 
-    public void onRadioButtonClickedStandart(View view) {
+    public void onRadioButtonClickedStandard(View view) {
         if (view.getId() != R.id.radio_standart) {
             RadioButton standart = view.getRootView().findViewById(R.id.radio_standart);
             standart.setChecked(true);
         }
         RadioButton dense = view.getRootView().findViewById(R.id.radio_dense);
         dense.setChecked(false);
-
+        YandexMetrica.reportEvent("Настройка с начальной страницы", "{\"Выбор макета\":\"Стандартный\"}");
         settings.setMaket(false);
     }
 
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
         RadioButton standart = view.getRootView().findViewById(R.id.radio_standart);
         standart.setChecked(false);
-
+        YandexMetrica.reportEvent("Настройка с начальной страницы", "\"Выбор макета\":\"Плотный\"}");
         settings.setMaket(true);
     }
 
@@ -80,5 +78,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NavigationViewActivity.class);
         startActivity(intent);
         finish();
+        YandexMetrica.reportEvent("Закончили начальную настройку");
     }
 }

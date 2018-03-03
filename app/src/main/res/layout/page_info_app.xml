@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.glouz.shypkoapp.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="com.example.glouz.shypkoapp.welcome.WelcomeActivity"
+    tools:showIn="@layout/activity_welcome">
 
     <ImageView
         android:id="@+id/icon_app"

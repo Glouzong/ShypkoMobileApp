@@ -13,11 +13,11 @@ public class DataSetting {
         appSettings = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    boolean checkFirstStart() {
+    public boolean checkFirstStart() {
         return appSettings.getBoolean(context.getString(R.string.keyFirstStart), true);
     }
 
-    void setFirstStart() {
+    public void setFirstStart() {
         SharedPreferences.Editor editor = appSettings.edit();
         editor.putBoolean(context.getString(R.string.keyFirstStart), false);
         editor.apply();
@@ -27,7 +27,7 @@ public class DataSetting {
         return appSettings.getString(context.getString(R.string.keySortApp),"keyNoSort");
     }
 
-    boolean checkTheme() {
+    public boolean checkTheme() {
         return appSettings.getBoolean(context.getString(R.string.keyTheme), false);
     }
 
@@ -37,27 +37,27 @@ public class DataSetting {
         editor.apply();
     }
 
-    boolean checkMaket() {
+    public boolean checkMaket() {
         return appSettings.getBoolean(context.getString(R.string.keyMaket), false);
     }
 
-    void setMaket(boolean typeMaket) {
+    public void setMaket(boolean typeMaket) {
         SharedPreferences.Editor editor = appSettings.edit();
         editor.putBoolean(context.getString(R.string.keyMaket), typeMaket);
         editor.apply();
     }
 
-    boolean checkLayout() {
+    public boolean checkLayout() {
         return appSettings.getBoolean(context.getString(R.string.keyTypeLayout), true);
     }
 
-    void setTypeLayout(boolean gridType) {
+    public void setTypeLayout(boolean gridType) {
         SharedPreferences.Editor editor = appSettings.edit();
         editor.putBoolean(context.getString(R.string.keyTypeLayout), gridType);
         editor.apply();
     }
 
-    boolean checkUpdateSettings() {
+    public boolean checkUpdateSettings() {
         return appSettings.getBoolean("keyUpdateSetttings", true);
     }
 }
