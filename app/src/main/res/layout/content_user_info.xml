@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.glouz.shypkoapp.UserInfoActivity"
+    tools:context="com.example.glouz.shypkoapp.userInfo.UserInfoActivity"
     tools:showIn="@layout/activity_user_info">
 
     <LinearLayout
@@ -13,11 +13,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:id="@+id/editName"
             android:text="@string/myName"
+            android:layout_margin="@dimen/margin"
+            android:inputType="textPersonName"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -26,21 +29,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/padding"
-            android:paddingBottom="0dp"
-            android:onClick="callPhone">
+            android:paddingBottom="0dp">
 
             <View
                 android:layout_width="@dimen/size_icons_about_me"
                 android:layout_height="@dimen/size_icons_about_me"
                 android:paddingLeft="@dimen/padding"
-                android:background="@drawable/ic_call_black_24dp" />
+                android:background="@drawable/ic_call_black_24dp"
+                android:onClick="callPhone" />
 
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/editPhone"
                 android:gravity="start|center_vertical"
+                android:layout_height="wrap_content"
                 android:paddingLeft="32dp"
                 android:text="@string/number_phone"
+                android:inputType="phone"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -49,23 +54,50 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/padding"
-            android:paddingBottom="0dp"
-            android:onClick="openEmail">
+            android:paddingBottom="0dp">
 
             <View
                 android:layout_width="@dimen/size_icons_about_me"
                 android:layout_height="@dimen/size_icons_about_me"
                 android:padding="@dimen/padding"
                 android:paddingLeft="@dimen/padding"
-                android:background="@drawable/ic_email_black_24dp" />
+                android:background="@drawable/ic_email_black_24dp"
+                android:onClick="openEmail" />
 
-            <TextView
+            <EditText
+                android:id="@+id/editEmail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="start|center_vertical"
                 android:paddingLeft="32dp"
                 android:text="@string/email"
+                android:inputType="textPostalAddress"
+                android:textSize="16sp"
+                tools:ignore="TextFields" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding">
+
+            <View
+                android:layout_width="@dimen/size_icons_about_me"
+                android:layout_height="@dimen/size_icons_about_me"
+                android:paddingLeft="@dimen/padding"
+                android:background="@drawable/ic_github_24dp"
+                android:onClick="openGithub" />
+
+            <EditText
+                android:id="@+id/editGithub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="32dp"
+                android:inputType="textPostalAddress"
+                android:text="@string/linkGithub"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -73,23 +105,58 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/padding"
-            android:onClick="openGithub">
+            android:padding="@dimen/padding">
 
             <View
                 android:layout_width="@dimen/size_icons_about_me"
                 android:layout_height="@dimen/size_icons_about_me"
-                android:paddingLeft="@dimen/padding"
-                android:background="@drawable/ic_github_24dp" />
+                android:background="@drawable/ic_location_on_black_24dp"
+                android:onClick="openMap"
+                android:paddingLeft="@dimen/padding" />
 
-            <TextView
+            <EditText
+                android:id="@+id/editLocation"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="start|center_vertical"
+                android:inputType="textPostalAddress"
                 android:paddingLeft="32dp"
-                android:text="@string/linkGithub"
+                android:text="@string/location"
                 android:textSize="16sp" />
         </LinearLayout>
-        <!--//TODO Добавить карту-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding">
+
+            <View
+                android:layout_width="@dimen/size_icons_about_me"
+                android:layout_height="@dimen/size_icons_about_me"
+                android:background="@drawable/ic_orion_vk"
+                android:onClick="openVK"
+                android:paddingLeft="@dimen/padding" />
+
+            <EditText
+                android:id="@+id/editSocialNetworkVK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:inputType="textPostalAddress"
+                android:paddingLeft="32dp"
+                android:text="@string/socialNetworkVK"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/editButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/margin"
+            android:onClick="editFields"
+            android:text="@string/startEditing" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

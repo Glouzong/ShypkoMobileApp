@@ -1,8 +1,10 @@
-package com.example.glouz.shypkoapp;
+package com.example.glouz.shypkoapp.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.example.glouz.shypkoapp.R;
 
 public class DataSetting {
     private Context context;
@@ -55,9 +57,5 @@ public class DataSetting {
         SharedPreferences.Editor editor = appSettings.edit();
         editor.putBoolean(context.getString(R.string.keyTypeLayout), gridType);
         editor.apply();
-    }
-
-    public boolean checkUpdateSettings() {
-        return appSettings.getBoolean("keyUpdateSetttings", true);
     }
 }

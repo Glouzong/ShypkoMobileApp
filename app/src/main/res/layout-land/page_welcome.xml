@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.glouz.shypkoapp.welcome.WelcomeActivity"
-    tools:layout_editor_absoluteY="25dp">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/avatar"
+        android:id="@+id/icon_app"
         android:layout_width="@dimen/widthIcon"
         android:layout_height="@dimen/heightIcon"
         android:padding="@dimen/padding"
@@ -16,7 +13,7 @@
         app:layout_constraintRight_toRightOf="@+id/center_line"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
-        app:srcCompat="@drawable/avatar" />
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <LinearLayout
         android:id="@+id/info_app"

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
-import com.example.glouz.shypkoapp.DataSetting;
+import com.example.glouz.shypkoapp.data.DataSetting;
 import com.example.glouz.shypkoapp.R;
 
 public class WelcomePageFragments extends Fragment {
@@ -43,7 +43,7 @@ public class WelcomePageFragments extends Fragment {
                 idPage = R.layout.page_set_maket;
                 break;
             default:
-                idPage = R.layout.welcome_page;
+                idPage = R.layout.page_welcome;
         }
 
         View view = inflater.inflate(idPage, container, false);

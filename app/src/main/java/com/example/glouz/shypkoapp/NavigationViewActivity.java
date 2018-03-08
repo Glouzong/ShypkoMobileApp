@@ -2,7 +2,9 @@ package com.example.glouz.shypkoapp;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,14 +16,20 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.example.glouz.shypkoapp.database.DataBase;
+import com.example.glouz.shypkoapp.data.DataBase;
+import com.example.glouz.shypkoapp.data.DataImages;
+import com.example.glouz.shypkoapp.data.DataSetting;
 import com.example.glouz.shypkoapp.launcher.ItemLauncher;
 import com.example.glouz.shypkoapp.launcher.LauncherAdapter;
 import com.example.glouz.shypkoapp.launcher.OffsetItemDecoration;
 import com.example.glouz.shypkoapp.settings.SettingsActivity;
+import com.example.glouz.shypkoapp.userInfo.UserInfoActivity;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
@@ -129,7 +137,7 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
         navigationView.setNavigationItemSelectedListener(this);
 
         final View navigationHeaderView = navigationView.getHeaderView(0);
-        final View profileImage = navigationHeaderView.findViewById(R.id.imageView);
+        final ImageView profileImage = navigationHeaderView.findViewById(R.id.navImageAvatar);
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -137,19 +145,28 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
                 YandexMetrica.reportEvent("Открыто окно информации о профиле");
             }
         });
+        setDataFromUserInfo(navigationHeaderView);
     }
 
-    private void initRecyclerView() {
-        setDate();  //TODO в отделльный поток
-        recyclerView = findViewById(R.id.louncher_content);
-        recyclerView.setHasFixedSize(false);
-        final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
-        recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
-        typeSort = settings.getTypeSort();
-        if (settings.checkLayout()) {
-            createGridLayout();
+    //TODO использовать в потоке
+    private void setDataFromUserInfo(View root) {
+        final ImageView profileImage = root.findViewById(R.id.navImageAvatar);
+        Bitmap avatar = DataImages.getAvatar(true, this);
+        if (avatar != null) {
+            profileImage.setImageBitmap(avatar);
+        }
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.userInfoSP), MODE_PRIVATE);
+        final TextView name = root.findViewById(R.id.navTextName);
+        if (name != null) {
+            name.setText(preferences.getString(getString(R.string.keyName), getString(R.string.myName)));
         } else {
-            createListLayout();
+            Log.d("NotFound", "name");
+        }
+        final TextView email = root.findViewById(R.id.navTextEmail);
+        if (name != null) {
+            email.setText(preferences.getString(getString(R.string.keyEmail), getString(R.string.email)));
+        } else {
+            Log.d("NotFound", "email");
         }
     }
 
@@ -167,6 +184,7 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
         YandexMetrica.reportEvent("Открыта страница настроек");
     }
 
+    //TODO использовать в потоке
     public void setDate() {
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -182,6 +200,21 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
             if (temp != null) {
                 mData.get(i).setFrequency(temp);
             }
+        }
+    }
+
+    private void initRecyclerView() {//TODO переделать
+
+        setDate();
+        recyclerView = findViewById(R.id.louncher_content);
+        recyclerView.setHasFixedSize(false);
+        final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
+        recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
+        typeSort = settings.getTypeSort();
+        if (settings.checkLayout()) {
+            createGridLayout();
+        } else {
+            createListLayout();
         }
     }
 

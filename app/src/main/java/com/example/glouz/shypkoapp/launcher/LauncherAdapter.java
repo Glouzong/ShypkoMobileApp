@@ -15,7 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.glouz.shypkoapp.DataSetting;
+import com.example.glouz.shypkoapp.data.DataSetting;
 import com.example.glouz.shypkoapp.R;
 import com.yandex.metrica.YandexMetrica;
 
@@ -66,7 +66,9 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Comparator<ItemLauncher> comparator = new Comparator<ItemLauncher>() {
             @Override
             public int compare(ItemLauncher o1, ItemLauncher o2) {
-                return Long.compare(o2.getFirstInstallTime(), o1.getFirstInstallTime());
+                Long item1 = o1.getFirstInstallTime();
+                Long item2 = o2.getFirstInstallTime();
+                return item1.compareTo(item2);
             }
         };
         Collections.sort(mData, comparator);
@@ -76,7 +78,9 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Comparator<ItemLauncher> comparator = new Comparator<ItemLauncher>() {
             @Override
             public int compare(ItemLauncher o1, ItemLauncher o2) {
-                return Integer.compare(o2.getFrequency(), o1.getFrequency());
+                Integer item1 = o1.getFrequency();
+                Integer item2 = o2.getFrequency();
+                return item1.compareTo(item2);
             }
         };
         Collections.sort(mData, comparator);

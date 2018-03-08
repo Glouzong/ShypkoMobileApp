@@ -2,7 +2,6 @@
 <resources>
     <string name="myName">Shypko Vadim</string>
     <string name="hello">Greetings</string>
-    <string name="aboutApp">Best launcher I recommend</string>
     <string name="whiteTheme">Light subject</string>
     <string name="blackTheme">Dark theme</string>
     <string name="aboutStandart"> Portrait: 4 icons in a row \landscape: 6 icons in a row</string>
@@ -22,6 +21,11 @@
     <string name="showWelcomePage">Show welcome page?</string>
     <string name="darkTheme">Dark theme</string>
     <string name="sortApp">Sorting applications</string>
+
+    <string name="aboutApp">Best launcher I advise.\n
+    Use as well as other Lounges.\nova
+    On the left there is a curtain with a menyushka there on the spot will understand.\n
+    Clicking on the photo opens the information about the Creator.</string>
 
     <string-array name="listTypeSort">
         <item>do not sort</item>

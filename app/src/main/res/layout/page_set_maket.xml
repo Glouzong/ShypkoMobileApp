@@ -20,6 +20,7 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin"
             android:layout_weight="0.5"
+            android:padding="0dp"
             android:background="@drawable/rectangle"
             android:orientation="vertical">
 
@@ -40,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:onClick="onRadioButtonClickedStandard"
                 android:padding="@dimen/padding"
+                android:onClick="onRadioButtonClickedStandard"
                 android:text="@string/aboutStandart"
                 android:textSize="@dimen/aboutMaket" />
         </LinearLayout>
@@ -50,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin"
+            android:padding="0dp"
             android:layout_weight="0.5"
             android:background="@drawable/rectangle"
             android:orientation="vertical">

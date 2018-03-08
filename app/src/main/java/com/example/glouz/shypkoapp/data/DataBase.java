@@ -1,4 +1,4 @@
-package com.example.glouz.shypkoapp.database;
+package com.example.glouz.shypkoapp.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,7 +17,7 @@ public class DataBase {
     private DBHelper connection;
 
     interface TableInfo {
-        String TABLE_NAME = "package_frequencies";
+        String TABLE_NAME = "table_frequency";
 
         interface Columns extends BaseColumns {
             String FIELD_FREQUENCY = "frequency";
@@ -36,7 +36,7 @@ public class DataBase {
 
     private static class DBHelper extends SQLiteOpenHelper {
         static final int VERSION = 1;
-        static final String DB_NAME = "sample.db";
+        static final String DB_NAME = "launcher.db";
 
         DBHelper(Context context) {
             super(context, DB_NAME, null, VERSION);
