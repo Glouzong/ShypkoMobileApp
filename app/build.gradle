@@ -39,7 +39,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-            ext.betaDistributionGroupAliases = 'shipkoappgroup'
+            ext.betaDistributionGroupAliases = 'developer'
         }
     }
 }
@@ -54,13 +54,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
         transitive = true;
     }
-    implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.2@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics-ndk:2.0.2@aar') {
         transitive = true;
     }
-    implementation 'com.yandex.android:mobmetricalib:2.80'
+    compile 'com.yandex.android:mobmetricalib:2.80'
 }
 
 crashlytics {
