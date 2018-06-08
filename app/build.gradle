@@ -26,10 +26,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.glouz.shypkoapp"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
-        versionName "2.0"
+        versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "7495913c6df149f3a375d48bb975091c"]
         vectorDrawables.useSupportLibrary = true

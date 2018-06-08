@@ -1,8 +1,10 @@
-package com.example.glouz.shypkoapp;
+package com.example.glouz.shypkoapp.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.example.glouz.shypkoapp.R;
 
 public class DataSetting {
     private Context context;
@@ -47,17 +49,24 @@ public class DataSetting {
         editor.apply();
     }
 
-    public boolean checkLayout() {
-        return appSettings.getBoolean(context.getString(R.string.keyTypeLayout), true);
+    public boolean checkClickSort() {
+        return appSettings.getBoolean(context.getString(R.string.keyClickSort), false);
     }
 
-    public void setTypeLayout(boolean gridType) {
+    public void setClickSort(boolean checkClickSort) {
         SharedPreferences.Editor editor = appSettings.edit();
-        editor.putBoolean(context.getString(R.string.keyTypeLayout), gridType);
+        editor.putBoolean(context.getString(R.string.keyClickSort), checkClickSort);
         editor.apply();
     }
 
-    public boolean checkUpdateSettings() {
-        return appSettings.getBoolean("keyUpdateSetttings", true);
+    public void setFlagNewInfo(boolean flagNewInfo) {
+        SharedPreferences.Editor editor = appSettings.edit();
+        editor.putBoolean(context.getString(R.string.keyFlagNewInfo), flagNewInfo);
+        editor.apply();
+    }
+
+
+    public boolean checkFlagNewInfo() {
+        return appSettings.getBoolean(context.getString(R.string.keyFlagNewInfo), false);
     }
 }

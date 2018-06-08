@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,110 +14,22 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.glouz.shypkoapp.DataSetting;
 import com.example.glouz.shypkoapp.R;
+import com.example.glouz.shypkoapp.data.DataSetting;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<ItemLauncher> mData;
     private boolean typeItem;
     private PackageManager packageManager;
-    private DataSetting settings;
 
     public LauncherAdapter(Context contextVeiw, ArrayList<ItemLauncher> data, boolean type) {
         packageManager = contextVeiw.getPackageManager();
         typeItem = type;
-        settings = new DataSetting(contextVeiw);
-        updateDate(data);
-    }
-
-    private void updateDate(ArrayList<ItemLauncher> data) {
         mData = data;
-        sortData();
-    }
-
-    public void sortData() {
-        switch (settings.getTypeSort()) {
-            case "keySortNameAZ":
-                sortDataAboutName(true);
-                break;
-            case "keySortNameZA":
-                sortDataAboutName(false);
-                break;
-            case "keySortFrequency":
-                sortDataAboutFrequency();
-                break;
-            case "keySortDateInstall":
-                sortDataAboutDataInstall();
-                break;
-            default:
-                break;
-        }
-        notifyDataSetChanged();
-    }
-
-    private void sortDataAboutDataInstall() {
-        Comparator<ItemLauncher> comparator = new Comparator<ItemLauncher>() {
-            @Override
-            public int compare(ItemLauncher o1, ItemLauncher o2) {
-                return Long.compare(o2.getFirstInstallTime(), o1.getFirstInstallTime());
-            }
-        };
-        Collections.sort(mData, comparator);
-    }
-
-    private void sortDataAboutFrequency() {
-        Comparator<ItemLauncher> comparator = new Comparator<ItemLauncher>() {
-            @Override
-            public int compare(ItemLauncher o1, ItemLauncher o2) {
-                return Integer.compare(o2.getFrequency(), o1.getFrequency());
-            }
-        };
-        Collections.sort(mData, comparator);
-    }
-
-    private void sortDataAboutName(final boolean flag) {
-        Comparator<ItemLauncher> comparator = new Comparator<ItemLauncher>() {
-            @Override
-            public int compare(ItemLauncher o1, ItemLauncher o2) {
-                if (flag) {
-                    return o1.getNameApp().compareTo(o2.getNameApp());
-                } else {
-                    return o2.getNameApp().compareTo(o1.getNameApp());
-                }
-            }
-        };
-        Collections.sort(mData, comparator);
-    }
-
-    public void removeApp(String nameApp) {
-        for (int i = 0; i < mData.size(); ++i) {
-            if (nameApp.equals(mData.get(i).getPackageName())) {
-                Log.d("remove", nameApp + " " + mData.get(i).getPackageName());
-                mData.remove(i);
-                notifyItemRemoved(i);
-                notifyDataSetChanged();
-                YandexMetrica.reportEvent("Удалено приложение приложение");
-                break;
-            }
-        }
-    }
-
-    public void installApp(String nameApp) {
-        Log.d("install", nameApp);
-        Intent intent = new Intent();
-        intent.setPackage(nameApp);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        ItemLauncher result = new ItemLauncher(packageManager.resolveActivity(intent, 0), packageManager);
-        mData.add(result);
-        YandexMetrica.reportEvent("Установлено приложение");
-        notifyItemInserted(mData.size() - 1);
-        notifyDataSetChanged();
     }
 
     private void bindGridView(@NonNull final Holder.GridHolder gridHolder, final int position) {
@@ -206,6 +117,9 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
+        if (mData == null) {
+            return 0;
+        }
         return mData.size();
     }
 

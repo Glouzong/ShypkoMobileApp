@@ -2,7 +2,6 @@
 <resources>
     <string name="myName">Шипко Вадим</string>
     <string name="hello">Приветствую</string>
-    <string name="aboutApp">Лучший лаунчер, советую</string>
     <string name="whiteTheme">Светлая тема</string>
     <string name="blackTheme">Тёмная тема</string>
     <string name="aboutStandart">Портретная: 4 иконки в ряд \nЛандшафная: 6 иконок в ряд</string>
@@ -23,6 +22,13 @@
     <string name="darkTheme">Тёмная тема</string>
     <string name="sortApp">Сортировка приложений</string>
 
+    <string name="aboutApp">Лучший лаунчер, советую.\n
+        Пользоваться так же как и другими лаунчерами.\n
+        Слева есть шторка с  менюшкай там на месте разберётесь.\n
+        По нажатюю на фото открывается информация об создателе.</string>
+    <string name="startEditing">Включить редактирование</string>
+    <string name="finishEditing">Завершить редактирование</string>
+    <string name="errorFormatURI">Не правильный форма URI</string>
     <string-array name="listTypeSort">
         <item>Не сортировать</item>
         <item>По названию А Я</item>

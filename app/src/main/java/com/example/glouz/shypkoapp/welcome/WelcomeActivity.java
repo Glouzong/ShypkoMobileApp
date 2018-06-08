@@ -10,7 +10,7 @@ import android.widget.RadioButton;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
-import com.example.glouz.shypkoapp.DataSetting;
+import com.example.glouz.shypkoapp.data.DataSetting;
 import com.example.glouz.shypkoapp.NavigationViewActivity;
 import com.example.glouz.shypkoapp.R;
 import com.yandex.metrica.YandexMetrica;
@@ -44,11 +44,13 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onRadioButtonClickedWhite(View view) {
         settings.setTheme(false);
         YandexMetrica.reportEvent("Настройка с начальной страницы", "{\"Выбор тема\":\"Светлый\"}");
+        this.recreate();
     }
 
     public void onRadioButtonClickedBlack(View view) {
         settings.setTheme(true);
         YandexMetrica.reportEvent("Настройка с начальной страницы", "{\"Выбор тема\":\"Тёмный\"}");
+        this.recreate();
     }
 
     public void onRadioButtonClickedStandard(View view) {
@@ -67,8 +69,8 @@ public class WelcomeActivity extends AppCompatActivity {
             RadioButton dense = view.getRootView().findViewById(R.id.radio_dense);
             dense.setChecked(true);
         }
-        RadioButton standart = view.getRootView().findViewById(R.id.radio_standart);
-        standart.setChecked(false);
+        RadioButton standard = view.getRootView().findViewById(R.id.radio_standart);
+        standard.setChecked(false);
         YandexMetrica.reportEvent("Настройка с начальной страницы", "\"Выбор макета\":\"Плотный\"}");
         settings.setMaket(true);
     }

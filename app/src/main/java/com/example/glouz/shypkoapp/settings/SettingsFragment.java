@@ -1,5 +1,6 @@
 package com.example.glouz.shypkoapp.settings;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -71,8 +72,9 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     void setTypeSortClickListener() {
-        final String key = this.getString(R.string.keySortApp);
-        Preference firstStart = this.findPreference(key);
+        final String key = getString(R.string.keySortApp);
+
+        final Preference firstStart = findPreference(key);
         firstStart.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
                 String eventSetTypeSort = "{\"Тип сортировки\":";
@@ -93,8 +95,17 @@ public class SettingsFragment extends PreferenceFragment {
                         eventSetTypeSort += "\"Без сортировки\"}";
                         break;
                 }
+
+                setClickTypeSort(preference);
                 YandexMetrica.reportEvent("Выбран вариант сортировки приложений", eventSetTypeSort);
                 return true;
+            }
+
+            private void setClickTypeSort(Preference preferences) {//using in dataSettings
+                final String keySort = getString(R.string.keyClickSort);
+                SharedPreferences.Editor editor = preferences.getSharedPreferences().edit();
+                editor.putBoolean(keySort, true);
+                editor.apply();
             }
         });
     }
