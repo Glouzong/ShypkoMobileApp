@@ -49,13 +49,24 @@ public class DataSetting {
         editor.apply();
     }
 
-    public boolean checkLayout() {
-        return appSettings.getBoolean(context.getString(R.string.keyTypeLayout), true);
+    public boolean checkClickSort() {
+        return appSettings.getBoolean(context.getString(R.string.keyClickSort), false);
     }
 
-    public void setTypeLayout(boolean gridType) {
+    public void setClickSort(boolean checkClickSort) {
         SharedPreferences.Editor editor = appSettings.edit();
-        editor.putBoolean(context.getString(R.string.keyTypeLayout), gridType);
+        editor.putBoolean(context.getString(R.string.keyClickSort), checkClickSort);
         editor.apply();
+    }
+
+    public void setFlagNewInfo(boolean flagNewInfo) {
+        SharedPreferences.Editor editor = appSettings.edit();
+        editor.putBoolean(context.getString(R.string.keyFlagNewInfo), flagNewInfo);
+        editor.apply();
+    }
+
+
+    public boolean checkFlagNewInfo() {
+        return appSettings.getBoolean(context.getString(R.string.keyFlagNewInfo), false);
     }
 }

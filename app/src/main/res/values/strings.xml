@@ -3,17 +3,21 @@
     <string name="appName" translatable="false">Shypko app</string>
     <string name="linkGithub" translatable="false">https://github.com/Glouzong/ShypkoMobileApp</string>
     <string name="email" translatable="false">vadimshipko@gmail.com</string>
-    <string name="number_phone" translatable="false">+375336666666</string>
-    <string name="socialNetworkVK" translatable="false">https://vk.com/yandex</string>
+    <string name="number_phone" translatable="false">1234567890</string>
+    <string name="socialNetworkVK" translatable="false">https://vk.com/</string>
     <string name="location" translatable="false">Яндекс</string>
 
     <!--Переменые и ключи-->
+    <string name="fileNameAvatar" translatable="false">avatar</string>
+    <string name="userInfoSP" translatable="false">userInfo</string>
     <string name="appSetting" translatable="false">appSetting</string>
     <string name="keyTheme" translatable="false">keyTheme</string>
     <string name="keyMaket" translatable="false">keyMaket</string>
     <string name="keyFirstStart" translatable="false">firstStart</string>
     <string name="keyTypeLayout" translatable="false">keyGridLayout</string>
     <string name="keySortApp" translatable="false">keySortApp</string>
+    <string name="keyClickSort" translatable="false">keyClickSort</string>
+    <string name="keyFlagNewInfo" translatable="false">keyFlagNewInfo</string>
 
     <string name="keyPhone" translatable="false">keyPhone</string>
     <string name="keyName" translatable="false">keyName</string>
@@ -58,9 +62,7 @@
         По нажатюю на фото открывается информация об создателе.</string>
     <string name="startEditing">Включить редактирование</string>
     <string name="finishEditing">Завершить редактирование</string>
-    <string name="fileNameAvatar">avatar</string>
     <string name="errorFormatURI">Не правильный форма URI</string>
-    <string name="userInfoSP">userInfo</string>
     <string-array name="listTypeSort">
         <item>Не сортировать</item>
         <item>По названию АЯ</item>

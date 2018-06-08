@@ -26,7 +26,9 @@
 להשתמש גם כמו משגרי אחרים.\נובה
 בצד שמאל עיוור עם תפריטים שם יבין.\n
 על ידי לחיצה על התמונה פותחת עם מידע על הבורא.</string>
-
+    <string name = "startEditing"> אפשר עריכה </string>
+         <string name = "finishEditing"> עריכת סוף </string>
+         <string name = "errorFormatURI"> טופס URI לא חוקי </string>
         <string-array name = "listTypeSort">
             <item> אל תבצע מיון </item>
             <item> לפי שם ואני </item>

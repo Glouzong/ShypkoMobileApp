@@ -26,7 +26,9 @@
     Use as well as other Lounges.\nova
     On the left there is a curtain with a menyushka there on the spot will understand.\n
     Clicking on the photo opens the information about the Creator.</string>
-
+    <string name="startEditing"> Enable editing </string>
+    <string name="finishEditing"> End editing </string>
+    <string name="errorFormatURI"> Invalid URI form </string>
     <string-array name="listTypeSort">
         <item>do not sort</item>
         <item>by name A Z</item>

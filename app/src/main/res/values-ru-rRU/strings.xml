@@ -26,7 +26,9 @@
         Пользоваться так же как и другими лаунчерами.\n
         Слева есть шторка с  менюшкай там на месте разберётесь.\n
         По нажатюю на фото открывается информация об создателе.</string>
-
+    <string name="startEditing">Включить редактирование</string>
+    <string name="finishEditing">Завершить редактирование</string>
+    <string name="errorFormatURI">Не правильный форма URI</string>
     <string-array name="listTypeSort">
         <item>Не сортировать</item>
         <item>По названию А Я</item>

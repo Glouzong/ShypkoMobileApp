@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,38 +24,45 @@ import com.example.glouz.shypkoapp.data.DataBase;
 import com.example.glouz.shypkoapp.data.DataImages;
 import com.example.glouz.shypkoapp.data.DataSetting;
 import com.example.glouz.shypkoapp.launcher.ItemLauncher;
-import com.example.glouz.shypkoapp.launcher.LauncherAdapter;
-import com.example.glouz.shypkoapp.launcher.OffsetItemDecoration;
+import com.example.glouz.shypkoapp.launcherScreens.ScreenFragmentsAdapter;
 import com.example.glouz.shypkoapp.settings.SettingsActivity;
 import com.example.glouz.shypkoapp.userInfo.UserInfoActivity;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 public class NavigationViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView recyclerView;
-    private DataSetting settings;
-    private boolean lastFlagMaket = false, lastFlagTheme = false;
-    private String typeSort;
-    private LauncherAdapter launcherAdapter;
-    private ArrayList<ItemLauncher> mData;
-    private UpdateListAppReceiver receiver;
+    private DataSetting dataSetting;
     private DataBase dataBase;
+
+    private final ArrayList<ItemLauncher> mData = new ArrayList<>();
+
+    private ScreenFragmentsAdapter screenFragmentsAdapter;
+    private ViewPager viewScreen;
+    private UpdateListAppReceiver receiver;
+    private boolean lastFlagTheme, lastFlagMaket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        settings = new DataSetting(this);
-        if (settings.checkTheme()) {
+        dataSetting = new DataSetting(this);
+        if (dataSetting.checkTheme()) {
             setTheme(R.style.AppTheme_Dark_NoActionBar);
+            lastFlagTheme = true;
         } else {
             setTheme(R.style.AppTheme_NoActionBar);
+            lastFlagTheme = false;
         }
-        lastFlagTheme = settings.checkTheme();
+        lastFlagMaket = dataSetting.checkMaket();
         super.onCreate(savedInstanceState);
+
         dataBase = new DataBase(this);
+        setData();
+        setContentView(R.layout.activity_navigation_view);
         initNavigationView();
         initRecyclerView();
         initReceiver();
@@ -66,13 +71,25 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
     @Override
     public void onResume() {
         super.onResume();
-        if (settings.checkTheme() != lastFlagTheme) {
+        if (dataSetting.checkFlagNewInfo()) {
+            dataSetting.setFlagNewInfo(false);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            final View navigationHeaderView = navigationView.getHeaderView(0);
+            setDataFromUserInfo(navigationHeaderView);
+            return;
+        }
+        if (dataSetting.checkTheme() != lastFlagTheme) {
             this.recreate();
-        } else if ((settings.checkMaket() != lastFlagMaket) && (settings.checkLayout())) {
-            createGridLayout();
-        } else if (!typeSort.equals(settings.getTypeSort())) {
-            launcherAdapter.sortData();
-            typeSort = settings.getTypeSort();
+            return;
+        }
+        if (dataSetting.checkMaket() != lastFlagMaket) {
+            lastFlagMaket = dataSetting.checkMaket();
+            screenFragmentsAdapter.updateMaket();
+            return;
+        }
+        if (dataSetting.checkClickSort()) {
+            sortData();
+            screenFragmentsAdapter.updateApps();
         }
     }
 
@@ -82,6 +99,7 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
         if (receiver != null) {
             unregisterReceiver(receiver);
         }
+        Log.d("destroy", "activity");
         super.onDestroy();
     }
 
@@ -95,22 +113,16 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         String event = "{\"Выбранная вкладка\":";
         if (id == R.id.nav_grid) {
-            createGridLayout();
+            viewScreen.setCurrentItem(0);
             event += "\"Отображение сеткой\"}";
         } else if (id == R.id.nav_list) {
-            createListLayout();
+            viewScreen.setCurrentItem(1);
             event += "\"Отображение списком\"}";
         } else if (id == R.id.nav_setting) {
             createSettingLayout();
@@ -123,7 +135,6 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
     }
 
     private void initNavigationView() {
-        setContentView(R.layout.activity_navigation_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -145,6 +156,7 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
                 YandexMetrica.reportEvent("Открыто окно информации о профиле");
             }
         });
+
         setDataFromUserInfo(navigationHeaderView);
     }
 
@@ -171,7 +183,7 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
     }
 
     private void initReceiver() {
-        receiver = new UpdateListAppReceiver(launcherAdapter);
+        receiver = new UpdateListAppReceiver(screenFragmentsAdapter);
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_PACKAGE_ADDED);
         filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
@@ -185,59 +197,112 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
     }
 
     //TODO использовать в потоке
-    public void setDate() {
+    private void initRecyclerView() {
+        screenFragmentsAdapter = new ScreenFragmentsAdapter(getSupportFragmentManager(), mData, this);
+        viewScreen = findViewById(R.id.screens);
+        viewScreen.setAdapter(screenFragmentsAdapter);
+        viewScreen.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                NavigationView navigationView = findViewById(R.id.nav_view);
+                if (position == 0) {
+                    navigationView.setCheckedItem(R.id.nav_grid);
+                } else {
+                    navigationView.setCheckedItem(R.id.nav_list);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                NavigationView navigationView = findViewById(R.id.nav_view);
+                if (position == 0) {
+                    navigationView.setCheckedItem(R.id.nav_grid);
+                } else {
+                    navigationView.setCheckedItem(R.id.nav_list);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+    }
+
+    private void setData() {
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> data = getPackageManager().queryIntentActivities(mainIntent, 0);
-        mData = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
+        mData.clear();
+        for (int i = 0; i < data.size(); ++i) {
             mData.add(new ItemLauncher(data.get(i), getPackageManager()));
         }
-
         HashMap<String, Integer> hashMap = dataBase.getFrequencies();
-        for (int i = 0; i < mData.size(); i++) {
+        for (int i = 0; i < mData.size(); ++i) {
             Integer temp = hashMap.get(mData.get(i).getPackageName());
             if (temp != null) {
                 mData.get(i).setFrequency(temp);
             }
         }
+        sortData();
     }
 
-    private void initRecyclerView() {//TODO переделать
-
-        setDate();
-        recyclerView = findViewById(R.id.louncher_content);
-        recyclerView.setHasFixedSize(false);
-        final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
-        recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
-        typeSort = settings.getTypeSort();
-        if (settings.checkLayout()) {
-            createGridLayout();
-        } else {
-            createListLayout();
+    public void sortData() {
+        dataSetting.setClickSort(false);
+        switch (dataSetting.getTypeSort()) {
+            case "keySortNameAZ":
+                sortDataAboutName(true);
+                break;
+            case "keySortNameZA":
+                sortDataAboutName(false);
+                break;
+            case "keySortFrequency":
+                sortDataAboutFrequency();
+                break;
+            case "keySortDateInstall":
+                sortDataAboutDataInstall();
+                break;
+            default:
+                break;
         }
+
     }
 
-    private void createGridLayout() {
-        final int spanCount;
-        lastFlagMaket = settings.checkMaket();
-        if (!settings.checkMaket()) {
-            spanCount = getResources().getInteger(R.integer.span_count);
-        } else {
-            spanCount = getResources().getInteger(R.integer.span_count_dense);
-        }
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
-        recyclerView.setLayoutManager(layoutManager);
-        launcherAdapter = new LauncherAdapter(this, mData, true);
-        recyclerView.setAdapter(launcherAdapter);
-        settings.setTypeLayout(true);
+    private void sortDataAboutDataInstall() {
+        Comparator<ItemLauncher> comparator = new Comparator<ItemLauncher>() {
+            @Override
+            public int compare(ItemLauncher o1, ItemLauncher o2) {
+                Long item1 = o1.getFirstInstallTime();
+                Long item2 = o2.getFirstInstallTime();
+                return item2.compareTo(item1);
+            }
+        };
+        Collections.sort(mData, comparator);
     }
 
-    private void createListLayout() {
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        launcherAdapter = new LauncherAdapter(this, mData, false);
-        recyclerView.setAdapter(launcherAdapter);
-        settings.setTypeLayout(false);
+    private void sortDataAboutFrequency() {
+        Comparator<ItemLauncher> comparator = new Comparator<ItemLauncher>() {
+            @Override
+            public int compare(ItemLauncher o1, ItemLauncher o2) {
+                Integer item1 = o1.getFrequency();
+                Integer item2 = o2.getFrequency();
+                return item2.compareTo(item1);
+            }
+        };
+        Collections.sort(mData, comparator);
+    }
+
+    private void sortDataAboutName(final boolean flag) {
+        Comparator<ItemLauncher> comparator = new Comparator<ItemLauncher>() {
+            @Override
+            public int compare(ItemLauncher o1, ItemLauncher o2) {
+                if (flag) {
+                    return o1.getNameApp().compareTo(o2.getNameApp());
+                } else {
+                    return o2.getNameApp().compareTo(o1.getNameApp());
+                }
+            }
+        };
+        Collections.sort(mData, comparator);
     }
 }

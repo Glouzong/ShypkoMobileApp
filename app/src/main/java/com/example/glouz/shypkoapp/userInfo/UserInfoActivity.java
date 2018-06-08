@@ -15,18 +15,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.glouz.shypkoapp.R;
 import com.example.glouz.shypkoapp.data.DataImages;
 import com.example.glouz.shypkoapp.data.DataSetting;
-import com.example.glouz.shypkoapp.R;
 import com.yandex.metrica.YandexMetrica;
 
 public class UserInfoActivity extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
+    DataSetting dataSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DataSetting settings = new DataSetting(this);
-        if (settings.checkTheme()) {
+        dataSetting = new DataSetting(this);
+        if (dataSetting.checkTheme()) {
             setTheme(R.style.AppTheme_Dark_NoActionBar);
         } else {
             setTheme(R.style.AppTheme_NoActionBar);
@@ -57,6 +58,15 @@ public class UserInfoActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        saveTextFromEditors();
+        Button editButton = findViewById(R.id.editButton);
+        if (!editButton.getText().toString().equals(getString(R.string.startEditing))) {
+            dataSetting.setFlagNewInfo(true);
+        }
+        super.onBackPressed();
+    }
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
@@ -70,6 +80,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 imageView.setImageBitmap(avatar);
             }
         }
+        dataSetting.setFlagNewInfo(true);
     }
 
     public void callPhone(View view) {
@@ -108,8 +119,8 @@ public class UserInfoActivity extends AppCompatActivity {
         EditText editText = findViewById(R.id.editLocation);
         String location = editText.getText().toString();
         Uri address = Uri.parse("geo:0,0?q=" + location);
-        Intent openlink = new Intent(Intent.ACTION_VIEW, address);
-        startActivity(openlink);
+        Intent openLink = new Intent(Intent.ACTION_VIEW, address);
+        startActivity(openLink);
         YandexMetrica.reportEvent("Открыта карта");
     }
 
@@ -139,6 +150,7 @@ public class UserInfoActivity extends AppCompatActivity {
         } else {
             editButton.setText(getString(R.string.finishEditing));
             flagEnable = true;
+            dataSetting.setFlagNewInfo(true);
         }
         setFlagOnEditors(flagEnable);
         if (!flagEnable) {
@@ -266,4 +278,5 @@ public class UserInfoActivity extends AppCompatActivity {
         EditText view = findViewById(R.id.editLocation);
         view.setText(value);
     }
+
 }

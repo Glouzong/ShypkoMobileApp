@@ -3,13 +3,11 @@ package com.example.glouz.shypkoapp;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
-import com.example.glouz.shypkoapp.launcher.LauncherAdapter;
-import com.yandex.metrica.YandexMetrica;
+import com.example.glouz.shypkoapp.launcherScreens.ScreenFragmentsAdapter;
 
 public class UpdateListAppReceiver extends BroadcastReceiver {
-    LauncherAdapter adapter;
+    ScreenFragmentsAdapter adapter;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -17,7 +15,7 @@ public class UpdateListAppReceiver extends BroadcastReceiver {
             return;
         }
         if (Intent.ACTION_PACKAGE_ADDED.equals(intent.getAction())) {
-            adapter.installApp(intent.getData().getSchemeSpecificPart());
+                adapter.installApp(intent.getData().getSchemeSpecificPart());
         } else if (Intent.ACTION_PACKAGE_REMOVED.equals(intent.getAction())) {
             adapter.removeApp(intent.getData().getSchemeSpecificPart());
         }
@@ -27,8 +25,8 @@ public class UpdateListAppReceiver extends BroadcastReceiver {
         super();
     }
 
-    public UpdateListAppReceiver(LauncherAdapter launcherAdapter) {
+    public UpdateListAppReceiver(ScreenFragmentsAdapter screenFragmentsAdapter) {
         super();
-        adapter = launcherAdapter;
+        adapter = screenFragmentsAdapter;
     }
 }
